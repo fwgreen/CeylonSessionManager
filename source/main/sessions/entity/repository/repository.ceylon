@@ -5,14 +5,8 @@ import main.sessions.entity { Session, Presenter }
 
 inject
 stateless
-shared class SessionRepository(EntityManager em) extends AbstractRepository<Session>() {
-  
-  shared default actual EntityManager getEntityManager() => em;
-}
+shared class SessionRepository() extends AbstractRepository<Session>() {}
 
 inject
 stateless
-shared class PresenterRepository(EntityManager em) extends AbstractRepository<Presenter>() {
-  
-  shared default actual EntityManager getEntityManager() => em;
-}
+shared class PresenterRepository() extends AbstractRepository<Presenter>() {}
