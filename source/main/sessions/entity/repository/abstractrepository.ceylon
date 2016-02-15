@@ -5,21 +5,21 @@ import java.util { List }
 
 import javax.persistence { EntityManager }
 import javax.persistence.criteria { CriteriaBuilder, CriteriaQuery, Root }
+import javax.inject { inject = inject__FIELD }
 
 shared abstract class AbstractRepository<E>() given E satisfies Object {
+  
+  inject late EntityManager em;
 
-  shared formal EntityManager getEntityManager();
+  shared default Anything save(E entity) => em.persist(entity);
   
-  shared default Anything save(E entity) => let (em = getEntityManager()) em.persist(entity);
+  shared default Anything delete(E entity) => em.remove(entity);
   
-  shared default Anything delete(E entity) => let (em = getEntityManager()) em.remove(entity);
+  shared default Anything update(E entity) => em.merge(entity);
   
-  shared default Anything update(E entity) => let (em = getEntityManager()) em.merge(entity);
-  
-  shared default E find(Integer id) => let (em = getEntityManager()) em.find(javaClass<E>(), Long(id));
+  shared default E find(Integer id) => em.find(javaClass<E>(), Long(id));
   
   shared default E findBy(String column, String item){
-    value em = getEntityManager();
     CriteriaBuilder cb = em.criteriaBuilder;
     CriteriaQuery<E> cq = cb.createQuery(javaClass<E>());
     Root<E> root = cq.from(javaClass<E>());
@@ -29,14 +29,12 @@ shared abstract class AbstractRepository<E>() given E satisfies Object {
   }
   
   shared default List<E> list() {
-    value em = getEntityManager();
     CriteriaQuery<E> cq = em.criteriaBuilder.createQuery(javaClass<E>());
     cq.select(cq.from(javaClass<E>()));
     return em.createQuery(cq).resultList;
   }
   
   shared default List<E> listBy(String column, String item) {
-    value em = getEntityManager();
     CriteriaBuilder cb = em.criteriaBuilder;
     CriteriaQuery<E> cq = cb.createQuery(javaClass<E>());
     Root<E> root = cq.from(javaClass<E>());
