@@ -10,11 +10,11 @@ shared abstract class AbstractRepository<E>() given E satisfies Object {
   
   persistence late EntityManager em;
 
-  shared default Anything save(E entity) => em.persist(entity);
+  shared default void save(E entity) => em.persist(entity);
   
-  shared default Anything delete(E entity) => em.remove(entity);
+  shared default void delete(E entity) => em.remove(entity);
   
-  shared default Anything update(E entity) => em.merge(entity);
+  shared default void update(E entity) => em.merge(entity);
   
   shared default E find(Integer id) => em.find(javaClass<E>(), Long(id));
   
