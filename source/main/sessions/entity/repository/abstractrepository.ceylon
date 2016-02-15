@@ -10,6 +10,12 @@ shared abstract class AbstractRepository<E>() given E satisfies Object {
 
   shared formal EntityManager getEntityManager();
   
+  shared default Anything save(E entity) => let (em = getEntityManager()) em.persist(entity);
+  
+  shared default Anything delete(E entity) => let (em = getEntityManager()) em.remove(entity);
+  
+  shared default Anything update(E entity) => let (em = getEntityManager()) em.merge(entity);
+  
   shared default E find(Integer id) => let (em = getEntityManager()) em.find(javaClass<E>(), Long(id));
   
   shared default E findBy(String column, String item){
@@ -38,6 +44,4 @@ shared abstract class AbstractRepository<E>() given E satisfies Object {
     cq.where(cb.equal(root.get(column), item));
     return em.createQuery(cq).resultList;
   }
-  
-  shared default Anything save(E entity) => let (em = getEntityManager()) em.persist(entity);
 }
