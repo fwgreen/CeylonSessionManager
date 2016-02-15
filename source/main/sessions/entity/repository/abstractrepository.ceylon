@@ -3,13 +3,12 @@ import ceylon.interop.java { ... }
 import java.lang { Long }
 import java.util { List }
 
-import javax.persistence { EntityManager }
+import javax.persistence { persistence=persistenceContext__FIELD, EntityManager }
 import javax.persistence.criteria { CriteriaBuilder, CriteriaQuery, Root }
-import javax.inject { inject = inject__FIELD }
 
 shared abstract class AbstractRepository<E>() given E satisfies Object {
   
-  inject late EntityManager em;
+  persistence late EntityManager em;
 
   shared default Anything save(E entity) => em.persist(entity);
   
