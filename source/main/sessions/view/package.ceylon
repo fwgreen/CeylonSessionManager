@@ -1,1 +1,0 @@
-package main.sessions.view;
