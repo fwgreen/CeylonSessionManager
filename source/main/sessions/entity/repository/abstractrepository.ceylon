@@ -19,19 +19,19 @@ shared abstract class AbstractRepository<E>() given E satisfies Object {
   shared default E find(Integer id) => em.find(javaClass<E>(), Long(id));
   
   shared default E findBy(String column, String item){
-    value query = "SELECT e FROM ``className()`` e WHERE e.``column`` = :item";
+    value query = "SELECT e FROM ``className`` e WHERE e.``column`` = :item";
     return em.createQuery(query, javaClass<E>()).setParameter("item", javaString(item)).singleResult;
   }
   
   shared default List<E> list() {
-    value query = "SELECT e FROM ``className()`` e";
+    value query = "SELECT e FROM ``className`` e";
     return em.createQuery(query, javaClass<E>()).resultList;
   }
   
   shared default List<E> listBy(String column, String item) {
-    value query = "SELECT e FROM ``className()`` e WHERE e.``column`` = :item";
+    value query = "SELECT e FROM ``className`` e WHERE e.``column`` = :item";
     return em.createQuery(query, javaClass<E>()).setParameter("item", javaString(item)).resultList;
   }
   
-  String className() => javaClass<E>().name.split('.'.equals).last;
+  String className => javaClass<E>().name.split('.'.equals).last;
 }
