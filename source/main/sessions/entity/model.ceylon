@@ -19,7 +19,7 @@ table{ name="\"Session\""; schema="public"; }
 shared class Session(name, room, starting) {
   
   id generated { strategy = identity; }
-  Long? id = null;
+  shared Long? id = null;
   shared variable String name;
   shared variable String room;
   temporal(timestamp)
@@ -33,7 +33,7 @@ table{ name="\"Presenter\""; schema="public"; }
 shared class Presenter(name, telephone, email) {
   
   id generated { strategy = identity; }
-  Long? id = null;
+  shared Long? id = null;
   shared variable String name;
   shared variable String telephone;
   shared variable String email;
