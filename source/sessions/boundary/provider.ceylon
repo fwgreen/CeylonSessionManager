@@ -2,7 +2,7 @@ import java.util { List }
 import javax.enterprise.context { requestScoped }
 import javax.inject { inject }
 
-import main.sessions.entity { ... }
+import sessions.entity { ... }
 
 inject
 requestScoped
