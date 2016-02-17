@@ -3,7 +3,7 @@ import ceylon.interop.java { ... }
 import java.lang { Long }
 import java.util { List }
 
-import javax.persistence { persistence=persistenceContext__FIELD, EntityManager }
+import javax.persistence { persistence=persistenceContext__FIELD, EntityManager, TypedQuery }
 import javax.persistence.criteria { CriteriaBuilder, CriteriaQuery, Root }
 
 shared abstract class AbstractRepository<E>() given E satisfies Object {
@@ -18,20 +18,20 @@ shared abstract class AbstractRepository<E>() given E satisfies Object {
   
   shared default E find(Integer id) => em.find(javaClass<E>(), Long(id));
   
-  shared default E findBy(String column, String item){
-    value query = "SELECT e FROM ``className`` e WHERE e.``column`` = :item";
-    return em.createQuery(query, javaClass<E>()).setParameter("item", javaString(item)).singleResult;
-  }
+  shared default E findBy(String column, String item) 
+      => let (query = "SELECT e FROM ``className`` e WHERE e.``column`` = :item")
+            typedQuery(query, item).singleResult;
   
-  shared default List<E> list() {
-    value query = "SELECT e FROM ``className`` e";
-    return em.createQuery(query, javaClass<E>()).resultList;
-  }
+  shared default List<E> list() 
+      => let (query = "SELECT e FROM ``className`` e")
+            em.createQuery(query, javaClass<E>()).resultList;
   
-  shared default List<E> listBy(String column, String item) {
-    value query = "SELECT e FROM ``className`` e WHERE e.``column`` = :item";
-    return em.createQuery(query, javaClass<E>()).setParameter("item", javaString(item)).resultList;
-  }
+  shared default List<E> listBy(String column, String item) 
+      => let (query = "SELECT e FROM ``className`` e WHERE e.``column`` = :item")
+            typedQuery(query, item).resultList;
   
   String className => javaClass<E>().name.split('.'.equals).last;
+  
+  TypedQuery<E> typedQuery(String query, String item) 
+      => em.createQuery(query, javaClass<E>()).setParameter("item", javaString(item));
 }
