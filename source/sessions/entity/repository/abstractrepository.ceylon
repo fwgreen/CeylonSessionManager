@@ -4,7 +4,6 @@ import java.lang { Long }
 import java.util { List }
 
 import javax.persistence { persistence=persistenceContext__FIELD, EntityManager, TypedQuery }
-import javax.persistence.criteria { CriteriaBuilder, CriteriaQuery, Root }
 
 shared abstract class AbstractRepository<E>() given E satisfies Object {
   
