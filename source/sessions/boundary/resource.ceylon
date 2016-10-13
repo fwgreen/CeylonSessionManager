@@ -1,13 +1,17 @@
 import java.util { List }
 import javax.enterprise.context { requestScoped }
-import javax.inject { inject }
+import javax.inject { inject=inject__FIELD }
 import javax.ws.rs { ... }
 import sessions.entity { ... }
 
-inject
+
 requestScoped
 path("sessions")
-shared class SessionResource(SessionProvider sp) {
+shared class SessionResource {
+  
+  inject late SessionProvider sp;
+  
+  shared new() {}
   
   get
   produces({"application/json"})
@@ -27,7 +31,11 @@ shared class SessionResource(SessionProvider sp) {
 inject
 requestScoped
 path("presenters")
-shared class PresenterResource(PresenterProvider pp) {
+shared class PresenterResource {
+  
+  inject late PresenterProvider pp;
+  
+  shared new() {}
   
   get
   produces({"application/json"})
