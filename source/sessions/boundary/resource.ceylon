@@ -7,11 +7,9 @@ import sessions.entity { ... }
 
 requestScoped
 path("sessions")
-shared class SessionResource {
+shared class SessionResource() {
   
   inject late SessionProvider sp;
-  
-  shared new() {}
   
   get
   produces({"application/json"})
@@ -28,14 +26,11 @@ shared class SessionResource {
   shared default Session find(pathParam("id") Integer id) => sp.find(id);
 }
 
-inject
 requestScoped
 path("presenters")
-shared class PresenterResource {
+shared class PresenterResource() {
   
   inject late PresenterProvider pp;
-  
-  shared new() {}
   
   get
   produces({"application/json"})
