@@ -9,15 +9,15 @@ shared abstract class AbstractRepository<E>() given E satisfies Object {
   
   persistence late variable EntityManager em;
 
-  shared default void save(E entity) => em.persist(entity);
+  shared void save(E entity) => em.persist(entity);
   
-  shared default void delete(E entity) => em.remove(entity);
+  shared void delete(E entity) => em.remove(entity);
   
-  shared default void update(E entity) => em.merge(entity);
+  shared void update(E entity) => em.merge(entity);
   
-  shared default E? find(Integer id) => em.find(javaClass<E>(), Long(id));
+  shared E? find(Integer id) => em.find(javaClass<E>(), Long(id));
   
-  shared default E? findBy(String column, String item){
+  shared E? findBy(String column, String item){
     value cb = em.criteriaBuilder;
     value cq = cb.createQuery(javaClass<E>());
     value root = cq.from(javaClass<E>());
@@ -26,13 +26,13 @@ shared abstract class AbstractRepository<E>() given E satisfies Object {
     return em.createQuery(cq).singleResult;
   }
   
-  shared default List<E> list() {
+  shared List<E> list() {
     value cq = em.criteriaBuilder.createQuery(javaClass<E>());
     cq.select(cq.from(javaClass<E>()));
     return em.createQuery(cq).resultList;
   }
   
-  shared default List<E> listBy(String column, String item) {
+  shared List<E> listBy(String column, String item) {
     value cb = em.criteriaBuilder;
     value cq = cb.createQuery(javaClass<E>());
     value root = cq.from(javaClass<E>());
