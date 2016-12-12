@@ -1,6 +1,6 @@
 import java.util { List }
 import javax.enterprise.context { requestScoped }
-import javax.inject { inject=inject__FIELD }
+import javax.inject { inject }
 import javax.ws.rs { ... }
 import sessions.entity { ... }
 
@@ -13,17 +13,17 @@ shared class SessionResource() {
   
   get
   produces({"application/json"})
-  shared default List<Session> list() => sp.list();
+  shared List<Session> list() => sp.list();
   
   get
   path("rooms/{room}")
   produces({"application/json"})
-  shared default List<Session> listBy(pathParam("room") String room) => sp.listBy("room", room);
+  shared List<Session> listBy(pathParam("room") String room) => sp.listBy("room", room);
 
   get
   path("{id}")
   produces({"application/json"})
-  shared default Session find(pathParam("id") Integer id) => sp.find(id);
+  shared Session find(pathParam("id") Integer id) => sp.find(id);
 }
 
 requestScoped
@@ -34,10 +34,10 @@ shared class PresenterResource() {
   
   get
   produces({"application/json"})
-  shared default List<Presenter> list() => pp.list();
+  shared List<Presenter> list() => pp.list();
   
   get
   path("{id}")
   produces({"application/json"})
-  shared default Presenter find(pathParam("id") Integer id) => pp.find(id);
+  shared Presenter find(pathParam("id") Integer id) => pp.find(id);
 }
