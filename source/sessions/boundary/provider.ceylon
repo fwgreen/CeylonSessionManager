@@ -8,15 +8,15 @@ inject
 requestScoped
 shared class SessionProvider(SessionRepository repo) {
   
-  shared default Session find(Integer id) => repo.find(id);
-  shared default List<Session> list() => repo.list();
-  shared default List<Session> listBy(String column, String item) => repo.listBy(column, item);
+  shared Session find(Integer id) => repo.find(id);
+  shared List<Session> list() => repo.list();
+  shared List<Session> listBy(String column, String item) => repo.listBy(column, item);
 }
 
 inject
 requestScoped
 shared class PresenterProvider(PresenterRepository repo) {
   
-  shared default Presenter find(Integer id) => repo.find(id);
-  shared default List<Presenter> list() => repo.list();
+  shared Presenter find(Integer id) => repo.find(id);
+  shared List<Presenter> list() => repo.list();
 }
